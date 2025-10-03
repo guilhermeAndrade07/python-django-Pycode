@@ -3,32 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>Gaw Multimarcas</title>
     <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
         }
 
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         header {
-            background-color: #0096c7;
+            background-color: #26752A;
             color: #fff;
             text-align: center;
         }
 
         footer {
-            background-color: #ccc;
-            color: #333;
-            padding: 20px;
+            background-color: #26752A;
+            color: white;
+            padding: 12px;
             text-align: center;
+            font-size: 1.4em;
+            margin-top: auto;
         }
 
         nav {
-            background-color: #0096c7;
+            background-color: #26752A;
             color: #fff;
+            font-weight: bold;
             height: 50px;
             display: flex;
             justify-content: space-between;
@@ -55,7 +68,7 @@
         }
 
         nav ul li a:hover {
-            background-color: #32bbe8;
+            background-color: #00f00ccf;
         }
 
         nav ul li.active a {
@@ -69,22 +82,37 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'cars_list' %}">Carros</a></li>
-                <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
-        </ul>
-        </nav>
-    </header>
+    <div class="wrapper">
+        <header>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li> Olá, {{ user.username }}</li>
+                        <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
+                    {% endif %}
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+                    {% if not user.is_authenticated %}
+                    <li><a href="{% url 'register' %}">Cadastre-se</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
 
-    <footer>
-        <p>&copy; Gui Corporation Multimarcas</p>
-    </footer>
+                    <li><a href="{% url 'cars_list' %}">Carros</a></li>
+
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Sair</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; GAW Systems Multimarcas</p>
+        </footer>
+    </div>
 </body>
 </html>
