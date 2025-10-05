@@ -31,12 +31,16 @@
             margin-bottom: 20px;
         }
 
+        input[type="submit"]:hover {
+            background-color: #38813b;
+        }
+
     </style>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %} 
         
         <table>
-            {{ new_car_form.as_table }} 
+            {{ form.as_table }} 
         </table>
 
         <input type="submit" value="Cadastrar" class="btn btn-primary">
