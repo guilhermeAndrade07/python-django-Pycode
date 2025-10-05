@@ -13,8 +13,8 @@
 
         body {
             font-family: 'Open Sans', sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
+            background-color: lightgrey;
+            color: black;
         }
 
         .wrapper {
@@ -24,13 +24,12 @@
         }
 
         header {
-            background-color: #26752A;
+            background-color: black;
             color: #fff;
-            text-align: center;
         }
 
         footer {
-            background-color: #1d5920b9;
+            background-color: black;
             color: white;
             padding: 10px;
             text-align: center;
@@ -39,44 +38,59 @@
         }
 
         nav {
-            background-color: #26752A;
+            background-color: black;
             color: #fff;
             font-weight: bold;
             height: 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
         }
 
-        nav ul {
-            list-style: none;
+        .nav-left, .nav-center, .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-center ul,
+        .nav-right ul {
+            display: flex;
             margin: 0;
             padding: 0;
-            display: flex;
+            list-style: none;
         }
 
-        nav ul li {
+        li {
             margin: 0 10px;
         }
 
-        nav ul li a {
+        a {
             color: #fff;
             text-decoration: none;
             font-size: 16px;
-            padding: 15px;
+            padding: 10px;
             transition: all 0.3s ease;
         }
 
-        nav ul li a:hover {
-            background-color: #00f00ccf;
+        a:hover {
+            color: #fff;
+            background-color: #00f00c92;
+            border-radius: 5px;
         }
 
-        nav ul li.active a {
+        li.active a {
             background-color: #666;
         }
 
-        nav ul li.active a:hover {
+        li.active a:hover {
             background-color: #999;
+        }
+
+        /* opcional: melhorar o espaçamento entre o Olá, username */
+        .nav-left span {
+            font-size: 16px;
+            padding: 8px;
         }
 
     </style>
@@ -85,23 +99,32 @@
     <div class="wrapper">
         <header>
             <nav>
-                <ul>
+
+                <div class="nav-left">
                     {% if user.is_authenticated %}
-                        <li> Olá, {{ user.username }}</li>
-                        <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
+                        <span>Olá, {{ user.username }}</span>
                     {% endif %}
+                </div>
 
-                    {% if not user.is_authenticated %}
-                    <li><a href="{% url 'register' %}">Cadastre-se</a></li>
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    {% endif %}
+                <div class="nav-center">
+                    <ul>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'cars_list' %}">Estoque Carros</a></li>
+                    </ul>
+                </div>
 
-                    <li><a href="{% url 'cars_list' %}">Carros</a></li>
-
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">Sair</a></li>
-                    {% endif %}
-                </ul>
+                <div class="nav-right">
+                    <ul>
+                        {% if not user.is_authenticated %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Cadastre-se</a></li>
+                        {% else %}
+                            <li><a href="{% url 'logout' %}">Sair</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </nav>
         </header>
 
@@ -116,3 +139,4 @@
     </div>
 </body>
 </html>
+

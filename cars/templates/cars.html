@@ -13,7 +13,7 @@
 
         .car-card {
             background-color: #e3e1e1;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 6px #26752A;
             border-radius: 10px;
             overflow: hidden;
             text-align: center;
@@ -22,7 +22,7 @@
 
         .car-card:hover {
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 10px #26752A;
             transform: translateY(-2px);
         }
 
@@ -63,6 +63,14 @@
             padding: 20px;
         }
 
+        nav ul li a {
+            color: #f7f7f7;
+        }
+
+        nav ul li a:hover{
+            color: #f7f7f7;
+        }
+
         a {
             text-decoration: none;
             font-size: 18px;
@@ -85,6 +93,10 @@
         input[type="text"]:focus {
             outline: none;
             border-bottom-color: #e3e1e1;
+        }
+
+        input[type="text"]::placeholder {
+            color: #26752A;
         }
 
         button[type="submit"] {
@@ -115,7 +127,7 @@
                     <div class="car-card">
                         <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
                         <h2>{{ car.brand }} {{ car.model }}</h2>
-                        <p>{{ car.factory_year }} - R$ {{ car.value }}</p>
+                        <p>{{ car.factory_year }} - R$ {{ car.value|floatformat:2 }}</p>
                     </div>
                 </a>
             {% endfor %}
